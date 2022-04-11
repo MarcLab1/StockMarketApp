@@ -38,7 +38,7 @@ class MainViewModel @Inject constructor(
                         stock.value = stockProfile.addPrice(stockPrice)
                     }
                 }
-            } else if (response1.await() is Resource.Error) {
+            } else if (response1.await() is Resource.Error || response2.await() is Resource.Error) {
                 errorMessage.value = response1.await().message.toString()
                 isLoading.value = false
                 stock.value = null
