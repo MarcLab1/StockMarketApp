@@ -71,6 +71,7 @@ class ProdStockRepository constructor(
                         )
                     )
                 }
+                return@flow
             } catch (exception: Exception) {
                 emit(Resource.Error<Stock>(message = exception.localizedMessage.toString()))
             }
