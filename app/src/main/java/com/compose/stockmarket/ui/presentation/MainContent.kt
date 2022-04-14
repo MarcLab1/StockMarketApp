@@ -18,15 +18,14 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun MainContent(
     state: MainState,
-    onTextChanged:(String) -> Unit,
-    getStockFlow:(String) -> Unit
-)
-{
+    viewModel: MainViewModel = viewModel(),
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(modifier = Modifier.fillMaxSize())
@@ -39,46 +38,52 @@ fun MainContent(
         {
             TextField(
                 value = state.query,
-                onValueChange = { onTextChanged(it) },
-                trailingIcon = {
-                    Icon(Icons.Default.Search, "search", modifier = Modifier.clickable {
-                        getStockFlow(state.query)
-                    })
+                onValueChange = {
+                    viewModel.OnEvent(MainEvents.TextChangedEvent(it))
                 },
-                singleLine = true,
-                maxLines = 1,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Search,
-                    capitalization = KeyboardCapitalization.Characters
-                ),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        keyboardController?.hide()
-                        getStockFlow(state.query)
-                    }
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.padding(10.dp))
-
-            if (state.stock != null) {
-                state.stock?.let { StockItem(it) }
+                //onTextChanged(it) },
+                trailingIcon = {
+                    Icon(
+                        Icons.Default.Search, "search",
+                        modifier = Modifier.clickable {
+                            //getStockFlow(state.query)
+                            viewModel.OnEvent(MainEvents.GetStockFlowEvent(state.query))
+                        })},
+        singleLine = true,
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search,
+            capitalization = KeyboardCapitalization.Characters
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                keyboardController?.hide()
+                //getStockFlow(state.query)
+                viewModel.OnEvent(MainEvents.GetStockFlowEvent(state.query))
             }
+        ),
+        modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.padding(10.dp))
 
+        if (state.stock != null) {
+            state.stock?.let { StockItem(it) }
         }
-        if (state.errorMessage.isNotEmpty())
-            Text(
-                state.errorMessage, modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(10.dp)
-            )
 
-        if (state.isLoading)
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(10.dp)
-            )
     }
+    if (state.errorMessage.isNotEmpty())
+        Text(
+            state.errorMessage, modifier = Modifier
+                .align(Alignment.Center)
+                .padding(10.dp)
+        )
+
+    if (state.isLoading)
+        CircularProgressIndicator(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(10.dp)
+        )
+}
 
 }

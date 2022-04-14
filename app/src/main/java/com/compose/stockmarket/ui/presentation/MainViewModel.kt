@@ -21,16 +21,25 @@ class MainViewModel @Inject constructor(
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState())
     val state: StateFlow<MainState> = _state.asStateFlow()
 
-    fun onTextChanged(newText: String)
+    fun OnEvent(event : MainEvents)
+    {
+        when(event){
+            is MainEvents.TextChangedEvent ->{
+                onTextChanged(event.query)
+            }
+            is MainEvents.GetStockFlowEvent ->{
+                getStock(event.query)
+            }
+        }
+    }
+    private fun onTextChanged(newText: String)
     {
         _state.value = _state.value.copy(query = newText)
     }
 
-    fun getStockAsync(query: String) {
+    private fun getStockAsync(query: String) {
         viewModelScope.launch {
             _state.value = _state.value.copy(errorMessage = "", isLoading = true)
-            //errorMessage.value = ""
-            //isLoading.value = true
 
             val response1 = async { repository.getStockProfile(symbol = query.uppercase()) }
             val response2 = async { repository.getStockPrice(symbol = query.uppercase()) }
@@ -49,7 +58,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getStock(query: String) {
+    private fun getStock(query: String) {
         viewModelScope.launch {
             _state.value = _state.value.copy(errorMessage = "", isLoading = true)
 
@@ -68,7 +77,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getStockFlow(query: String) {
+    private fun getStockFlow(query: String) {
         viewModelScope.launch {
             _state.value = _state.value.copy(errorMessage = "", isLoading = true)
 

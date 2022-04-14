@@ -7,11 +7,5 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun MainScreen(viewModel: MainViewModel = viewModel()) {
 
     val state by viewModel.state.collectAsState()
-
-    MainContent(
-        state = state,
-        onTextChanged = viewModel::onTextChanged,
-        getStockFlow = { viewModel.getStockFlow(it)})
-
-
+    MainContent(state = state)
 }

@@ -55,7 +55,7 @@ class ProdStockRepository constructor(
         }
     }
 
-    override suspend fun getStockFlow(symbol: String): Flow<Resource<Stock>> {
+    override fun getStockFlow(symbol: String): Flow<Resource<Stock>> {
         return flow {
             emit(Resource.Loading())
             try {

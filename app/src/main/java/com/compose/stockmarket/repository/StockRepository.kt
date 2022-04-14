@@ -11,6 +11,6 @@ interface StockRepository {
     suspend fun getStockProfile(symbol: String) : Resource<StockProfile>
     suspend fun getStockPrice(symbol: String) : Resource<StockPrice>
     suspend fun getStock(symbol: String) : Resource<Stock>
-    suspend fun getStockFlow(symbol: String) : Flow<Resource<Stock>>
+    fun getStockFlow(symbol: String) : Flow<Resource<Stock>>
 
 }
