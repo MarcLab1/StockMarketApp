@@ -19,6 +19,7 @@ import coil.compose.AsyncImage
 import com.compose.stockmarket.model.Stock
 import com.compose.stockmarket.R
 import com.compose.stockmarket.ui.presentation.common.CustomItem
+import com.compose.stockmarket.ui.theme.StockMarketTheme
 
 @Composable
 fun StockItem(stock: Stock) {
@@ -112,30 +113,30 @@ private fun showPercentage(percent: Double): String {
 )
 @Composable
 private fun StockItemPreview() {
-    StockItem(
-        stock = Stock(
-            country = "US",
-            currency = "USD",
-            exchange = "NEW YORK STOCK EXCHANGE, INC.",
-            finnhubIndustry = "Media",
-            ipo = "2013-11-07",
-            logo = "https://static.finnhub.io/logo/aa4a7988-80ce-11ea-b927-00000000092a.png",
-            marketCapitalization = 37013.64,
-            name = "Twitter Inc",
-            phone = "14152229670.0",
-            shareOutstanding = 800.64,
-            ticker = "TWTR",
-            weburl = "https://twitter.com/",
-            currentPrice = 46.5899,
-            change = 0.3599,
-            percentChange = 0.7785,
-            highPrice = 47.89,
-            lowPrice = 44.72,
-            openPrice = 45.75,
-            previousClosePrice = 46.23,
-            time = 1649694198
+    StockMarketTheme {
+        StockItem(
+            stock = Stock(
+                country = "US",
+                currency = "USD",
+                exchange = "NEW YORK STOCK EXCHANGE, INC.",
+                finnhubIndustry = "Media",
+                ipo = "2013-11-07",
+                logo = "https://static.finnhub.io/logo/aa4a7988-80ce-11ea-b927-00000000092a.png",
+                marketCapitalization = 37013.64,
+                name = "Twitter Inc",
+                phone = "14152229670.0",
+                shareOutstanding = 800.64,
+                ticker = "TWTR",
+                weburl = "https://twitter.com/",
+                currentPrice = 46.5899,
+                change = 0.3599,
+                percentChange = 0.7785,
+                highPrice = 47.89,
+                lowPrice = 44.72,
+                openPrice = 45.75,
+                previousClosePrice = 46.23,
+                time = 1649694198
+            )
         )
-    )
-
-
+    }
 }

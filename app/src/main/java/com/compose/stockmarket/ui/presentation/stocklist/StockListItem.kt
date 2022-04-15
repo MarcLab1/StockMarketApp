@@ -2,6 +2,7 @@ package com.compose.stockmarket.ui.presentation.stocklist
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -12,14 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.compose.stockmarket.model.StockList
+import com.compose.stockmarket.ui.theme.StockMarketTheme
 
 @Composable
 fun StockListItem(stockList: StockList) {
-    Card(elevation = 2.dp, modifier = Modifier.padding(3.dp)) {
+    Card(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp), elevation = 1.dp) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 5.dp, bottom = 5.dp),
+                .background(color = MaterialTheme.colors.background)
+                .fillMaxWidth(),
         ) {
             Row(
                 modifier = Modifier
@@ -66,27 +68,27 @@ fun StockListItem(stockList: StockList) {
 }
 
 @Preview(
-    name = "night mode", uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "night mode", uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Preview(
-    name = "light mode", uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "light mode", uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
 private fun StockListItemPreview() {
-    StockListItem(
-        stockList = StockList(
-            currency = "USD",
-            description = "AIR TRANSPORT SERVICES GROUP",
-            displaySymbol = "ATSG",
-            figi = "BBG000BLW5F7",
-            isin = null,
-            mic = "XNAS",
-            shareClassFIGI = "BBG001S8KJF9",
-            symbol = "ATSG",
-            symbol2 = "",
-            type = "Common Stock"
+    StockMarketTheme {
+        StockListItem(
+            stockList = StockList(
+                currency = "USD",
+                description = "AIR TRANSPORT SERVICES GROUP",
+                displaySymbol = "ATSG",
+                figi = "BBG000BLW5F7",
+                isin = null,
+                mic = "XNAS",
+                shareClassFIGI = "BBG001S8KJF9",
+                symbol = "ATSG",
+                symbol2 = "",
+                type = "Common Stock"
+            )
         )
-    )
-
-
+    }
 }
