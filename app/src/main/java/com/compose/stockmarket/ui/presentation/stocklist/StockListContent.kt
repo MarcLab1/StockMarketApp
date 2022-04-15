@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +32,9 @@ fun StockListContent(
                 onValueChange = { viewModel.OnEvent(StockListEvent.TextChangedEvent(it)) },
                 labelText = "Search stock list",
                 onSearchClick = { viewModel.OnEvent(StockListEvent.GetStockFlowEvent(state.query)) },
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp).fillMaxWidth()
+                modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp)
+                    .fillMaxWidth()
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -49,7 +52,7 @@ fun StockListContent(
             Text(
                 state.errorMessage, modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(10.dp)
+                    .padding(10.dp), color = MaterialTheme.colors.error
             )
 
         if (state.isLoading)

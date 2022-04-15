@@ -2,6 +2,7 @@ package com.compose.stockmarket.ui.presentation.stock
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,7 +40,7 @@ fun StockContent(
             Text(
                 state.errorMessage, modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(10.dp)
+                    .padding(10.dp), color = MaterialTheme.colors.error
             )
 
         if (state.isLoading)

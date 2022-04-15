@@ -35,6 +35,25 @@ class StockViewModel @Inject constructor(
         _state.value = _state.value.copy(query = newText)
     }
 
+    private fun getStock(query: String) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(errorMessage = "", isLoading = true)
+
+            val response = repository.getStock(symbol = query.uppercase())
+            when (response) {
+                is Resource.Success ->{
+                    _state.value = _state.value.copy(errorMessage = "", isLoading = false, stock = response.data)
+                }
+                is Resource.Error ->{
+                    _state.value = _state.value.copy(errorMessage = response.message.toString(), isLoading = false, stock = null)
+                }
+                is Resource.Loading -> {
+                    _state.value = _state.value.copy(errorMessage = "", isLoading = true, stock = null)
+                }
+            }
+        }
+    }
+
     private fun getStockAsync(query: String) {
         viewModelScope.launch {
             _state.value = _state.value.copy(errorMessage = "", isLoading = true)
@@ -52,25 +71,6 @@ class StockViewModel @Inject constructor(
                 }
             } else if (response1.await() is Resource.Error || response2.await() is Resource.Error) {
                 _state.value = _state.value.copy(errorMessage = response1.await().message.toString(), isLoading = false, stock = null)
-            }
-        }
-    }
-
-    private fun getStock(query: String) {
-        viewModelScope.launch {
-            _state.value = _state.value.copy(errorMessage = "", isLoading = true)
-
-            val response = repository.getStock(symbol = query.uppercase())
-            when (response) {
-                is Resource.Success ->{
-                    _state.value = _state.value.copy(errorMessage = "", isLoading = false, stock = response.data)
-                }
-                is Resource.Error ->{
-                    _state.value = _state.value.copy(errorMessage = response.message.toString(), isLoading = false, stock = null)
-                }
-                is Resource.Loading -> {
-                    _state.value = _state.value.copy(errorMessage = "", isLoading = true, stock = null)
-                }
             }
         }
     }
