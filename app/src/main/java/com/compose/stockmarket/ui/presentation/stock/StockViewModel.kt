@@ -19,13 +19,13 @@ class StockViewModel @Inject constructor(
     private val _state: MutableStateFlow<StockState> = MutableStateFlow(StockState())
     val state: StateFlow<StockState> = _state.asStateFlow()
 
-    fun OnEvent(event : StockEvents)
+    fun OnEvent(event : StockEvent)
     {
         when(event){
-            is StockEvents.TextChangedEvent ->{
+            is StockEvent.TextChangedEvent ->{
                 onTextChanged(event.query)
             }
-            is StockEvents.GetStockFlowEvent ->{
+            is StockEvent.GetStockFlowEvent ->{
                 getStock(event.query)
             }
         }

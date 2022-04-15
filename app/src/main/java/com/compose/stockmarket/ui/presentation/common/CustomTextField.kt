@@ -37,6 +37,7 @@ fun CustomTextField(
             Icon(
                 Icons.Default.Search, "search",
                 modifier = Modifier.clickable {
+                    keyboardController?.hide()
                     onSearchClick(value)
                 })
         },

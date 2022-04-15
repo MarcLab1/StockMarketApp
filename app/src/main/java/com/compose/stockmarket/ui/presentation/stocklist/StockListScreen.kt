@@ -7,5 +7,5 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun StockListScreen(viewModel: StockListViewModel = hiltViewModel()) {
 
     val state by viewModel.state.collectAsState()
-    StockListContent(state = state)
+    StockListContent(state = state, OnEvent = { viewModel.OnEvent(it) })
 }
