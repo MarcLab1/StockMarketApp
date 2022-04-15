@@ -11,7 +11,7 @@ interface StockDao {
     fun getStocks() : Flow<List<StockEntity>>
 
     @Query("SELECT * from stocks where name =:name")
-    fun searchStocks(name : String) : Flow<List<StockEntity>>
+    fun searchStocks(name : String) : StockEntity
 
     @Insert(onConflict = REPLACE)
     suspend fun insertStock(stockEntity: StockEntity)

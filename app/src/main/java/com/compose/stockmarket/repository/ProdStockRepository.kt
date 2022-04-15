@@ -1,9 +1,8 @@
 package com.compose.stockmarket.repository
 
-import com.compose.stockmarket.model.Stock
-import com.compose.stockmarket.model.StockPrice
-import com.compose.stockmarket.model.StockProfile
-import com.compose.stockmarket.model.addPrice
+import com.compose.stockmarket.database.StockDatabase
+import com.compose.stockmarket.database.toStock
+import com.compose.stockmarket.model.*
 import com.compose.stockmarket.network.ApiService
 import com.compose.stockmarket.network.price.toStockPrice
 import com.compose.stockmarket.network.stockprofile.toStockProfile
@@ -13,8 +12,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class ProdStockRepository constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val database: StockDatabase,
 ) : StockRepository {
+    private val dao = database.dao()
 
     override suspend fun getStockProfile(symbol: String): Resource<StockProfile> {
         try {
@@ -25,7 +26,9 @@ class ProdStockRepository constructor(
             else
                 return (Resource.Success<StockProfile>(data = response.toStockProfile()))
         } catch (exception: Exception) {
-            return Resource.Error<StockProfile>(message = exception.localizedMessage.toString())
+            return Resource.Error<StockProfile>(
+                message = exception.localizedMessage ?: Constants.ERROR_MSG
+            )
         }
     }
 
@@ -34,7 +37,9 @@ class ProdStockRepository constructor(
             val response = apiService.getStockPrice(symbol = symbol)
             return Resource.Success<StockPrice>(data = response.toStockPrice())
         } catch (exception: Exception) {
-            return Resource.Error<StockPrice>(message = exception.localizedMessage.toString())
+            return Resource.Error<StockPrice>(
+                message = exception.localizedMessage ?: Constants.ERROR_MSG
+            )
         }
     }
 
@@ -51,13 +56,14 @@ class ProdStockRepository constructor(
                 )
             }
         } catch (exception: Exception) {
-            return Resource.Error<Stock>(message = exception.localizedMessage.toString())
+            return Resource.Error<Stock>(
+                message = exception.localizedMessage ?: Constants.ERROR_MSG
+            )
         }
     }
 
     override fun getStockFlow(symbol: String): Flow<Resource<Stock>> {
         return flow {
-            emit(Resource.Loading())
             try {
                 val response1 = apiService.getStockProfile(symbol = symbol)
 
@@ -73,8 +79,18 @@ class ProdStockRepository constructor(
                 }
                 return@flow
             } catch (exception: Exception) {
-                emit(Resource.Error<Stock>(message = exception.localizedMessage.toString()))
+                emit(
+                    Resource.Error<Stock>(
+                        message = exception.localizedMessage ?: Constants.ERROR_MSG
+                    )
+                )
             }
         }
     }
+
+    override fun getStockCache(symbol: String): Stock {
+        return dao.searchStocks(symbol).toStock()
+    }
+
+
 }

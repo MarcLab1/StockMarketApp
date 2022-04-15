@@ -1,4 +1,4 @@
-package com.compose.stockmarket.ui.presentation
+package com.compose.stockmarket.ui.presentation.stock
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.compose.stockmarket.model.Stock
 import com.compose.stockmarket.R
+import com.compose.stockmarket.ui.presentation.common.CustomItem
 
 @Composable
 fun StockItem(stock: Stock) {
@@ -51,6 +52,7 @@ fun StockItem(stock: Stock) {
                             .width(30.dp)
                     )
                 }
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth(.5f)
@@ -71,18 +73,19 @@ fun StockItem(stock: Stock) {
                 )
                 {
                     stock.currentPrice?.let {
-                        Text("$" +
-                                "%.2f".format(it),
+                        Text(
+                            "$" +
+                                    "%.2f".format(it),
                             style = MaterialTheme.typography.h5
                         )
                     }
                     Row()
                     {
                         stock.percentChange?.let {
-                            if(it>0)
-                                Icon(Icons.Default.KeyboardArrowUp , contentDescription = "up")
+                            if (it > 0)
+                                Icon(Icons.Default.KeyboardArrowUp, contentDescription = "up")
                             else
-                                Icon(Icons.Default.KeyboardArrowDown , contentDescription = "down")
+                                Icon(Icons.Default.KeyboardArrowDown, contentDescription = "down")
 
                             Text(
                                 showPercentage(it),
@@ -90,14 +93,15 @@ fun StockItem(stock: Stock) {
                             )
                         }
                     }
+
                 }
             }
         }
     }
 }
-private fun showPercentage(percent: Double): String
-{
-    return "%.2f".format(percent) +"%"
+
+private fun showPercentage(percent: Double): String {
+    return "%.2f".format(percent) + "%"
 }
 
 @Preview(

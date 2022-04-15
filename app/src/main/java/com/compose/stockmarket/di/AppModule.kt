@@ -5,7 +5,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.compose.stockmarket.database.StockDatabase
 import com.compose.stockmarket.network.ApiService
+import com.compose.stockmarket.repository.ProdStockListRepository
 import com.compose.stockmarket.repository.ProdStockRepository
+import com.compose.stockmarket.repository.StockListRepository
 import com.compose.stockmarket.repository.StockRepository
 import dagger.Module
 import dagger.Provides
@@ -33,9 +35,16 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideStockRepository(apiService: ApiService): StockRepository {
-        return ProdStockRepository(apiService = apiService)
+    fun provideStockRepository(apiService: ApiService, database: StockDatabase): StockRepository {
+        return ProdStockRepository(apiService = apiService, database = database)
     }
+
+    @Singleton
+    @Provides
+    fun provideStockListRepository(apiService: ApiService): StockListRepository {
+        return ProdStockListRepository(apiService = apiService)
+    }
+
 
     @Singleton
     @Provides

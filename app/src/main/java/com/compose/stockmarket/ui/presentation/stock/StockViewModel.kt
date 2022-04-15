@@ -1,4 +1,4 @@
-package com.compose.stockmarket.ui.presentation
+package com.compose.stockmarket.ui.presentation.stock
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,27 +7,25 @@ import com.compose.stockmarket.repository.StockRepository
 import com.compose.stockmarket.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class StockViewModel @Inject constructor(
     private val repository: StockRepository,
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState())
-    val state: StateFlow<MainState> = _state.asStateFlow()
+    private val _state: MutableStateFlow<StockState> = MutableStateFlow(StockState())
+    val state: StateFlow<StockState> = _state.asStateFlow()
 
-    fun OnEvent(event : MainEvents)
+    fun OnEvent(event : StockEvents)
     {
         when(event){
-            is MainEvents.TextChangedEvent ->{
+            is StockEvents.TextChangedEvent ->{
                 onTextChanged(event.query)
             }
-            is MainEvents.GetStockFlowEvent ->{
+            is StockEvents.GetStockFlowEvent ->{
                 getStock(event.query)
             }
         }
