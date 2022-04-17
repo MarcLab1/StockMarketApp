@@ -11,10 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.compose.stockmarket.model.StockList
 import com.compose.stockmarket.ui.presentation.common.CustomTextField
 import com.compose.stockmarket.ui.theme.StockMarketTheme
@@ -22,10 +20,11 @@ import com.compose.stockmarket.ui.theme.StockMarketTheme
 @Composable
 fun StockListContent(
     state: StockListState,
-    OnEvent: (StockListEvent) -> Unit,
+    onEvent: (StockListEvent) -> Unit,
+    enabled: Boolean
 ) {
 
-    Box(modifier = Modifier.fillMaxSize())
+    Box(modifier = Modifier.fillMaxSize().background(androidx.compose.material3.MaterialTheme.colorScheme.primary))
     {
         Column(
             modifier = Modifier
@@ -35,16 +34,17 @@ fun StockListContent(
         {
             CustomTextField(
                 value = state.query,
-                onValueChange = { OnEvent(StockListEvent.TextChangedEvent(it)) },
+                onValueChange = { onEvent(StockListEvent.TextChangedEvent(it)) },
                 labelText = "Search stock list",
-                onSearchClick = { OnEvent(StockListEvent.GetStockFlowEvent(state.query)) },
+                onSearchClick = { onEvent(StockListEvent.GetStockFlowEvent(state.query)) },
+                enabled = enabled,
                 modifier = Modifier
                     .fillMaxWidth()
             )
             //Spacer(modifier = Modifier.padding(5.dp))
 
             if (state.stockList != null) {
-                LazyColumn()
+                LazyColumn(modifier = Modifier.padding(top = 5.dp))
                 {
                     itemsIndexed(state.stockList)
                     { index, stockLists ->
@@ -95,7 +95,11 @@ private fun StockListPreview() {
             )
         )
     }
-    StockMarketTheme{
-        StockListContent(state = StockListState(stockList = stockList.toList()), OnEvent = {})
+    StockMarketTheme {
+        StockListContent(
+            state = StockListState(stockList = stockList.toList()),
+            onEvent = {},
+            enabled = true
+        )
     }
 }

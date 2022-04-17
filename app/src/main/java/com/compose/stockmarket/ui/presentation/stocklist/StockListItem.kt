@@ -20,8 +20,8 @@ fun StockListItem(stockList: StockList) {
     Card(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp), elevation = 1.dp) {
         Column(
             modifier = Modifier
-                .background(color = MaterialTheme.colors.background)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(androidx.compose.material3.MaterialTheme.colorScheme.onPrimary),
         ) {
             Row(
                 modifier = Modifier

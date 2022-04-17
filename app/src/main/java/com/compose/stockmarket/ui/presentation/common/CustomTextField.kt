@@ -28,6 +28,7 @@ fun CustomTextField(
     onValueChange: (String) -> Unit,
     labelText: String,
     onSearchClick:(String) -> Unit,
+    enabled : Boolean,
     modifier: Modifier
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -56,8 +57,9 @@ fun CustomTextField(
                 onSearchClick(value)
             }
         ),
+        enabled = enabled,
         modifier = modifier
-            .background(color = MaterialTheme.colors.background)
+            .background(color = androidx.compose.material3.MaterialTheme.colorScheme.primaryContainer)
 
     )
 }
@@ -71,7 +73,7 @@ fun CustomTextField(
 @Composable
 private fun BlahPreview() {
   StockMarketTheme {
-      CustomTextField(value = "", onValueChange = {}, labelText = "something", onSearchClick = {}, modifier = Modifier)
+      CustomTextField(value = "", onValueChange = {}, labelText = "something", onSearchClick = {}, enabled = true, modifier = Modifier)
   }
 
 }

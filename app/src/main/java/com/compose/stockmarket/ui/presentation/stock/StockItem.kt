@@ -1,6 +1,7 @@
 package com.compose.stockmarket.ui.presentation.stock
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -27,7 +28,8 @@ fun StockItem(stock: Stock) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 5.dp, bottom = 5.dp),
+                .padding(top = 5.dp, bottom = 5.dp)
+                .background(color = androidx.compose.material3.MaterialTheme.colorScheme.onPrimary),
         ) {
             Row(
                 modifier = Modifier

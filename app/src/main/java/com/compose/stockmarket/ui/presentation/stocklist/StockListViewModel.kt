@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.compose.stockmarket.repository.StockListRepository
 import com.compose.stockmarket.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class StockListViewModel @Inject constructor(
         getStockListFlow(state.value.query)
     }
 
-    fun OnEvent(event : StockListEvent)
+    fun onEvent(event : StockListEvent)
     {
         when(event){
             is StockListEvent.TextChangedEvent ->{
@@ -45,6 +46,7 @@ class StockListViewModel @Inject constructor(
             repository.getStockListFlow(query = query.uppercase()).collect { response ->
                 when (response) {
                     is Resource.Success -> {
+                        delay(2000L)
                         _state.value = _state.value.copy(errorMessage = "", isLoading = false, stockList = response.data)
                     }
                     is Resource.Error -> {

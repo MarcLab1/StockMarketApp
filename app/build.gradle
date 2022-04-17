@@ -83,4 +83,8 @@ dependencies {
     def coroutines = "1.6.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+    //Material 3
+    implementation("androidx.compose.material3:material3:1.0.0-alpha09")
+
 }

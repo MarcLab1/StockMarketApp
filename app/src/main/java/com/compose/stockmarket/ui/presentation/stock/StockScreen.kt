@@ -7,5 +7,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun MainScreen(viewModel: StockViewModel = hiltViewModel()) {
 
     val state by viewModel.state.collectAsState()
-    StockContent(state = state, OnEvent = { viewModel.OnEvent(it)})
+    StockContent(state = state, onEvent = { viewModel.onEvent(it)},
+    enabled = !state.isLoading)
 }

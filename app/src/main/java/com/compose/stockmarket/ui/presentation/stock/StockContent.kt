@@ -1,6 +1,7 @@
 package com.compose.stockmarket.ui.presentation.stock
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -10,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.compose.stockmarket.model.Stock
 import com.compose.stockmarket.ui.presentation.common.CustomTextField
 import com.compose.stockmarket.ui.theme.StockMarketTheme
@@ -18,22 +18,25 @@ import com.compose.stockmarket.ui.theme.StockMarketTheme
 @Composable
 fun StockContent(
     state: StockState,
-    OnEvent: (StockEvent) -> Unit,
+    onEvent: (StockEvent) -> Unit,
+    enabled: Boolean
 ) {
 
-    Box(modifier = Modifier.fillMaxSize())
+    Box(modifier = Modifier.fillMaxSize().background(androidx.compose.material3.MaterialTheme.colorScheme.primary))
     {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
+
         )
         {
             CustomTextField(
                 value = state.query,
-                onValueChange = { OnEvent(StockEvent.TextChangedEvent(it)) },
+                onValueChange = { onEvent(StockEvent.TextChangedEvent(it)) },
                 labelText = "Search stock",
-                onSearchClick = { OnEvent(StockEvent.GetStockFlowEvent(state.query)) },
+                onSearchClick = { onEvent(StockEvent.GetStockFlowEvent(state.query)) },
+                enabled = enabled,
                 modifier = Modifier
                     .fillMaxWidth()
             )
@@ -91,7 +94,8 @@ private fun StockContentPreview() {
                 previousClosePrice = 46.23,
                 time = 1649694198
             )
-        ), OnEvent = {})
+        ), onEvent = {}, enabled = true
+        )
     }
 
 }
