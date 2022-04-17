@@ -6,12 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -58,8 +55,16 @@ fun CustomTextField(
             }
         ),
         enabled = enabled,
+        colors = TextFieldDefaults.textFieldColors(
+            cursorColor = MaterialTheme.colorScheme.secondary,
+            textColor = MaterialTheme.colorScheme.secondary,
+            backgroundColor = MaterialTheme.colorScheme.background,
+            focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+            disabledIndicatorColor = MaterialTheme.colorScheme.secondary,
+        ),
         modifier = modifier
-            .background(color = androidx.compose.material3.MaterialTheme.colorScheme.primaryContainer)
+            .background(color = androidx.compose.material3.MaterialTheme.colorScheme.inversePrimary)
 
     )
 }
@@ -73,7 +78,7 @@ fun CustomTextField(
 @Composable
 private fun BlahPreview() {
   StockMarketTheme {
-      CustomTextField(value = "", onValueChange = {}, labelText = "something", onSearchClick = {}, enabled = true, modifier = Modifier)
+      CustomTextField(value = "domry", onValueChange = {}, labelText = "something", onSearchClick = {}, enabled = true, modifier = Modifier)
   }
 
 }

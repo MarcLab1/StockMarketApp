@@ -8,6 +8,8 @@ import com.compose.stockmarket.ui.presentation.stock.MainScreen
 import com.compose.stockmarket.ui.presentation.stocklist.StockListScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope

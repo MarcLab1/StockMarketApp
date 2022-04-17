@@ -3,13 +3,10 @@ package com.compose.stockmarket.ui.presentation.stock
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,13 +19,13 @@ import com.compose.stockmarket.R
 import com.compose.stockmarket.ui.presentation.common.CustomItem
 import com.compose.stockmarket.ui.theme.StockMarketTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StockItem(stock: Stock) {
-    Card(elevation = 4.dp) {
+    Card() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 5.dp, bottom = 5.dp)
                 .background(color = androidx.compose.material3.MaterialTheme.colorScheme.onPrimary),
         ) {
             Row(
@@ -63,8 +60,8 @@ fun StockItem(stock: Stock) {
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    stock.name?.let { Text(it, style = MaterialTheme.typography.body2) }
-                    stock.ticker?.let { Text(it, style = MaterialTheme.typography.h5) }
+                    stock.name?.let { Text(it, style = androidx.compose.material3.MaterialTheme.typography.bodyLarge) }
+                    stock.ticker?.let { Text(it, style = androidx.compose.material3.MaterialTheme.typography.bodySmall) }
 
                 }
                 Column(
@@ -79,10 +76,10 @@ fun StockItem(stock: Stock) {
                         Text(
                             "$" +
                                     "%.2f".format(it),
-                            style = MaterialTheme.typography.h5
+                            style = androidx.compose.material3.MaterialTheme.typography.bodyMedium
                         )
                     }
-                    Row()
+                    Row(verticalAlignment = Alignment.CenterVertically)
                     {
                         stock.percentChange?.let {
                             if (it > 0)
@@ -92,7 +89,7 @@ fun StockItem(stock: Stock) {
 
                             Text(
                                 showPercentage(it),
-                                style = MaterialTheme.typography.body2
+                                style = androidx.compose.material3.MaterialTheme.typography.bodySmall
                             )
                         }
                     }

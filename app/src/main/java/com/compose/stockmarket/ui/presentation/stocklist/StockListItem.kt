@@ -4,9 +4,10 @@ import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,9 +16,10 @@ import androidx.compose.ui.unit.dp
 import com.compose.stockmarket.model.StockList
 import com.compose.stockmarket.ui.theme.StockMarketTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StockListItem(stockList: StockList) {
-    Card(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp), elevation = 1.dp) {
+    Card(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -37,8 +39,8 @@ fun StockListItem(stockList: StockList) {
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    stockList.displaySymbol?.let { Text(it, style = MaterialTheme.typography.h5) }
-                    stockList.description?.let { Text(it, style = MaterialTheme.typography.body2) }
+                    stockList.displaySymbol?.let { Text(it, style = androidx.compose.material3.MaterialTheme.typography.displaySmall) }
+                    stockList.description?.let { Text(it, style = androidx.compose.material3.MaterialTheme.typography.bodySmall) }
 
                 }
                 Column(
@@ -52,13 +54,13 @@ fun StockListItem(stockList: StockList) {
                     stockList.currency?.let {
                         Text(
                             it,
-                            style = MaterialTheme.typography.body1,
+                            style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
                         )
                     }
                     stockList.type?.let {
                         Text(
                             it,
-                            style = MaterialTheme.typography.body2,
+                            style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
                         )
                     }
                 }

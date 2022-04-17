@@ -4,20 +4,19 @@ import android.content.res.Configuration
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.*
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.compose.stockmarket.ui.theme.StockMarketTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomItem(
     topLeft: String,
@@ -26,7 +25,7 @@ fun CustomItem(
     bottomRight: String,
     iv: ImageVector?
 ) {
-    Card(elevation = 2.dp, modifier = Modifier.padding(3.dp)) {
+    Card( modifier = Modifier.padding(3.dp)) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -46,8 +45,8 @@ fun CustomItem(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(topLeft, style = MaterialTheme.typography.h5)
-                    Text(bottomLeft, style = MaterialTheme.typography.body2)
+                    Text(topLeft, style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
+                    Text(bottomLeft, style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
 
                 }
                 Column(
@@ -59,12 +58,12 @@ fun CustomItem(
                 )
                 {
 
-                    Text(topRight, style = MaterialTheme.typography.body1)
+                    Text(topRight, style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
                     Row()
                     {
-                        if(iv!=null)
+                        if (iv != null)
                             Image(imageVector = iv, contentDescription = "")
-                        Text(bottomRight, style = MaterialTheme.typography.body2)
+                        Text(bottomRight, style = androidx.compose.material3.MaterialTheme.typography.bodySmall)
 
                     }
                 }
@@ -81,12 +80,13 @@ fun CustomItem(
 )
 @Composable
 private fun CustomItemPreview() {
-    CustomItem(
-        topLeft = "tl",
-        bottomLeft = "bl",
-        topRight = "tr",
-        bottomRight = "br",
-        iv = Icons.Filled.KeyboardArrowUp
-    )
-
+    StockMarketTheme {
+        CustomItem(
+            topLeft = "tl",
+            bottomLeft = "bl",
+            topRight = "tr",
+            bottomRight = "br",
+            iv = Icons.Filled.KeyboardArrowUp
+        )
+    }
 }
