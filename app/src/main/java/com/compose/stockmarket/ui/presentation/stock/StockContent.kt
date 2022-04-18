@@ -56,8 +56,8 @@ fun StockContent(
             CircularProgressIndicator(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(10.dp)
-            )
+                    .padding(10.dp),
+                    color = MaterialTheme.colorScheme.inversePrimary)
     }
 
 }

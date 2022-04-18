@@ -78,7 +78,7 @@ fun CustomTextField(
 @Composable
 private fun BlahPreview() {
   StockMarketTheme {
-      CustomTextField(value = "domry", onValueChange = {}, labelText = "something", onSearchClick = {}, enabled = true, modifier = Modifier)
+      CustomTextField(value = "jfkkd", onValueChange = {}, labelText = "something", onSearchClick = {}, enabled = true, modifier = Modifier)
   }
 
 }
